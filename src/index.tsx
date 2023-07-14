@@ -6,14 +6,18 @@ import { RouterProvider } from "react-router-dom";
 import router from "./router";
 import { ApolloProvider } from "@apollo/client";
 import client from "./api";
+import { Provider } from "react-redux";
+import store from "./store";
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 root.render(
-  <React.StrictMode>
-    <ApolloProvider client={client}>
+  // <React.StrictMode>
+  <ApolloProvider client={client}>
+    <Provider store={store}>
       <RouterProvider router={router} />
-    </ApolloProvider>
-  </React.StrictMode>
+    </Provider>
+  </ApolloProvider>
+  // </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
