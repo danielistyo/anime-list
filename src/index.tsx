@@ -4,17 +4,15 @@ import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import { RouterProvider } from "react-router-dom";
 import router from "./router";
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import { ApolloProvider } from "@apollo/client";
+import client from "./api";
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 root.render(
   <React.StrictMode>
+    <ApolloProvider client={client}>
       <RouterProvider router={router} />
-    <App />
+    </ApolloProvider>
   </React.StrictMode>
 );
 
