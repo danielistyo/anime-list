@@ -1,0 +1,16 @@
+.listpage {
+  &__header {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__bookmark {
+    color: #fff;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  &__genre{
+    height: 24px;
+    align-self: center;
+  }
+}

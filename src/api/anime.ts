@@ -67,12 +67,12 @@ const ANIME_FRAGMENT = gql`
 
 export const GET_ANIMES = gql`
   ${ANIME_FRAGMENT}
-  query getAnimes($page: Int = 1, $perPage: Int = 30) {
+  query getAnimes($page: Int = 1, $perPage: Int = 30, $genre: String) {
     Page(page: $page, perPage: $perPage) {
       pageInfo {
         perPage
       }
-      media(sort: TRENDING, type: ANIME) {
+      media(sort: TRENDING, type: ANIME, genre: $genre) {
         ...AnimeFields
       }
     }
@@ -99,5 +99,11 @@ export const GET_ANIME_BY_IDS = gql`
         ...AnimeFields
       }
     }
+  }
+`;
+
+export const GET_GENRES = gql`
+  query getGenres {
+    GenreCollection
   }
 `;

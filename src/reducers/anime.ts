@@ -1,9 +1,10 @@
 import { createReducer } from "@reduxjs/toolkit";
 import { addBookmark, nextPage } from "../actions/anime";
 
-const initialState: { bookmark: number[]; page: number } = {
+const initialState: { bookmark: number[]; page: number; genre: null | string } = {
   bookmark: [],
   page: 1,
+  genre: null,
 };
 
 export default createReducer(initialState, (builder) => {
