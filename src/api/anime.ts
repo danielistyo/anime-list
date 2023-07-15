@@ -91,8 +91,13 @@ export const GET_ANIME = gql`
 export const GET_ANIME_BY_IDS = gql`
   ${ANIME_FRAGMENT}
   query getAnime($ids: [Int]) {
-    Media(type: ANIME, id_in: $ids) {
-      ...AnimeFields
+    Page {
+      pageInfo {
+        perPage
+      }
+      media(sort: TRENDING, type: ANIME, id_in: $ids) {
+        ...AnimeFields
+      }
     }
   }
 `;

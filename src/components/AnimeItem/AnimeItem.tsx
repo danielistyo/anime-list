@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { getTitle } from "../../helpers/anime";
 import PropTypes from "prop-types";
 import { StarFilled } from "@ant-design/icons";

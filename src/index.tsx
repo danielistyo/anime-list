@@ -13,7 +13,6 @@ const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement)
 root.render(
   <div className="app">
     <h1 className="app__title">ANIME</h1>
-    <h4 className="app__bookmark">Bookmark</h4>
     <ApolloProvider client={client}>
       <Provider store={store}>
         <RouterProvider router={router} />

@@ -9,23 +9,23 @@ import "./AnimeList.scss";
 
 const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 
-const AnimeList = ({ animes, isLoading }: { animes: Anime[]; isLoading: boolean }) => {
+const AnimeList = ({ animes, showLoading }: { animes: Anime[]; showLoading?: boolean }) => {
   return (
     <div className="anime-list">
-      {isLoading && <Spin indicator={antIcon} />}
+      {showLoading && <Spin indicator={antIcon} />}
       {animes.map((m) => (
-        <Link to={`anime/${m.id}`} key={m.id} className="anime-list__link">
+        <Link to={{ pathname: `/anime/${m.id}` }} key={m.id} className="anime-list__link">
           <AnimeItem anime={m} />
         </Link>
       ))}
-      <Spin indicator={antIcon} className="anime-list__loading"/>
+      {showLoading && <Spin indicator={antIcon} className="anime-list__loading" />}
     </div>
   );
 };
 
 AnimeList.propTypes = {
-  animes: PropTypes.array,
-  isLoading: PropTypes.bool,
+  animes: PropTypes.array.isRequired,
+  showLoading: PropTypes.bool,
 };
 
 export default AnimeList;

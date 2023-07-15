@@ -6,6 +6,7 @@ import { nextPage } from "../actions/anime";
 import { LoadingOutlined } from "@ant-design/icons";
 import { Spin } from "antd";
 import AnimeList from "../components/AnimeList";
+import { Link } from "react-router-dom";
 
 const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 
@@ -54,9 +55,14 @@ const ListPage = () => {
   const { Page: { media } } = data;
 
   return (
-    <div>
-      <AnimeList animes={media} isLoading={loading || isLoadingMore} />
-    </div>
+    <>
+      <Link to="bookmark">
+        <h4 className="app__bookmark">Bookmark</h4>
+      </Link>
+      <div>
+        <AnimeList animes={media} />
+      </div>
+    </>
   );
 };
 

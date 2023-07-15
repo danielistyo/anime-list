@@ -12,8 +12,9 @@ import "./Detail.scss";
 const DetailPage = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
-  const isBookmarked = useAppSelector((state) => (id ? state.anime.bookmark.includes(id) : false));
-  const { loading, error, data } = useQuery<AnimePage>(GET_ANIME, { variables: { id } });
+  const numberId = parseInt(id || "0");
+  const isBookmarked = useAppSelector((state) => (id ? state.anime.bookmark.includes(numberId) : false));
+  const { loading, error, data } = useQuery<AnimePage>(GET_ANIME, { variables: { id: numberId } });
   if (loading) return <div>"LOADING....."</div>;
   if (error) return <div>Error</div>;
   if (!data || !id) return <div>Empty</div>;
@@ -30,7 +31,7 @@ const DetailPage = () => {
   } = data.Media;
 
   const onAddBookmark = () => {
-    dispatch(addBookmark(id));
+    dispatch(addBookmark(numberId));
   };
 
   return (
