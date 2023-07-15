@@ -44,6 +44,8 @@ const ListPage = () => {
     return () => {
       window.removeEventListener("scroll", onWindowScroll);
     };
+    // we don't need to pass deps, because it's intended
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, isLoadingMore]);
 
   if (loading)

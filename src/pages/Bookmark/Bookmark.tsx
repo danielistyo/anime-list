@@ -11,7 +11,7 @@ const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 
 const BookmarkPage = () => {
   const bookmark = useAppSelector((state) => state.anime.bookmark);
-  const { loading, error, data } = useQuery<AnimePages>(GET_ANIME_BY_IDS, { variables: { ids: bookmark } });
+  const { loading, data } = useQuery<AnimePages>(GET_ANIME_BY_IDS, { variables: { ids: bookmark } });
 
   if (loading)
     return (
