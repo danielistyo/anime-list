@@ -14,7 +14,13 @@ export type Anime = {
     medium: string;
     color: string;
   };
+  bannerImage: string;
   trending: number;
+  description: string;
+  genres: string[];
+  averageScore: number;
+  startDate: { year: number; month: number; day: number };
+  duration: number;
 };
 
 export type AnimePages = {
@@ -45,13 +51,23 @@ const ANIME_FRAGMENT = gql`
       medium
       color
     }
+    bannerImage
     trending
+    description
+    genres
+    averageScore
+    startDate {
+      year
+      month
+      day
+    }
+    duration
   }
 `;
 
 export const GET_ANIMES = gql`
   ${ANIME_FRAGMENT}
-  query getAnimes($page: Int = 1, $perPage: Int = 20) {
+  query getAnimes($page: Int = 1, $perPage: Int = 30) {
     Page(page: $page, perPage: $perPage) {
       pageInfo {
         perPage
@@ -67,6 +83,15 @@ export const GET_ANIME = gql`
   ${ANIME_FRAGMENT}
   query getAnime($id: Int) {
     Media(type: ANIME, id: $id) {
+      ...AnimeFields
+    }
+  }
+`;
+
+export const GET_ANIME_BY_IDS = gql`
+  ${ANIME_FRAGMENT}
+  query getAnime($ids: [Int]) {
+    Media(type: ANIME, id_in: $ids) {
       ...AnimeFields
     }
   }

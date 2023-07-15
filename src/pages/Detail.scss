@@ -1,0 +1,140 @@
+.anime-detail {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  &__back {
+    font-size: 20px;
+    color: #fff;
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    z-index: 2;
+    cursor: pointer;
+  }
+
+  &__poster {
+    height: 100vh;
+    width: 30vw;
+    object-fit: cover;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 1;
+    filter: saturate(116%);
+    -webkit-filter: saturate(116%);
+    mask-image: gradient(
+      linear,
+      right top,
+      left top,
+      color-stop(1, rgba(0, 0, 0, 1)),
+      color-stop(0.5, rgba(0, 0, 0, 1)),
+      color-stop(0, rgba(0, 0, 0, 0))
+    );
+    -webkit-mask-image: -webkit-gradient(
+      linear,
+      right top,
+      left top,
+      color-stop(1, rgba(0, 0, 0, 1)),
+      color-stop(0.5, rgba(0, 0, 0, 1)),
+      color-stop(0, rgba(0, 0, 0, 0))
+    );
+    opacity: 1;
+    pointer-events: none;
+    transition-property: opacity;
+    transition-duration: 0.2s;
+    transition-timing-function: ease-in;
+
+    @media (max-width: 1024px) {
+      top: 0;
+      right: 0;
+      left: 0;
+      width: 100vw;
+      height: 30vw;
+      -webkit-mask-image: none;
+    }
+  }
+
+  &__detail {
+    position: absolute;
+    width: 60vw;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 27vw;
+    margin: auto 0;
+    max-width: 600px;
+    max-height: 300px;
+    color: #fff;
+  }
+
+  &__title {
+    text-shadow: 2px 2px 2px rgb(0, 0, 0);
+    font-size: 32px;
+    color: #fff;
+    text-transform: uppercase;
+  }
+
+  &__subtitle {
+    display: flex;
+    padding: 10px 0;
+    color: #fff;
+    font-size: 13px;
+    text-shadow: 2px 2px 2px rgb(0, 0, 0);
+
+    > * {
+      margin-right: 20px;
+    }
+  }
+
+  &__rating {
+    font-size: 13px;
+  }
+
+  &__overview {
+    margin-top: 15px;
+    text-shadow: 1px 1px 1px rgb(0, 0, 0);
+    font-size: 17px;
+    color: rgb(255 255 255 / 98%);
+    overflow: auto;
+    line-height: 24px;
+  }
+
+  &__links {
+    margin-top: 15px;
+    text-decoration: none;
+    font-weight: bold;
+    color: #fff;
+    border: solid 1px #fff;
+    padding: 4px;
+    border-radius: 4px;
+    font-size: 12px;
+    margin-right: 10px;
+    background-color: transparent;
+    cursor: pointer;
+
+    &:hover {
+      color: #000;
+      background-color: #fff;
+      border-color: #fff;
+      transition: all 0.3s ease-in-out;
+    }
+  }
+
+  &__backdrop {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    object-fit: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    opacity: 0.25;
+  }
+}

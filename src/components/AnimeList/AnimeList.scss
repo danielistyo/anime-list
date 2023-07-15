@@ -1,0 +1,20 @@
+.anime-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  position: relative;
+
+  &__link {
+    display: contents;
+    color: #000;
+  }
+
+  &__loading {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.6039215686);
+    height: 50px;
+    padding-top: 13px;
+  }
+}

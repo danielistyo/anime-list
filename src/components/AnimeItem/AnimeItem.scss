@@ -1,0 +1,56 @@
+.anime {
+  overflow: hidden;
+  border: 2px solid transparent;
+  position: relative;
+  cursor: pointer;
+  height: 240px;
+  width: 160px;
+
+  &__image {
+    object-fit: cover;
+    height: 100%;
+    width: 160px;
+  }
+
+  &__detail {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: #ffffffbd;
+    opacity: 0;
+    transition: opacity 0.3s ease-out;
+  }
+
+  &:hover {
+    .anime__detail {
+      opacity: 1;
+    }
+  }
+
+  &__title {
+    text-align: center;
+    width: calc(100% - 10px);
+    position: absolute;
+    left: 5px;
+    top: 50px;
+    font-family: "Lato Bold";
+  }
+
+  &__date {
+    margin-top: 5px;
+    font-size: 12px;
+    text-transform: unset;
+  }
+
+  &__score {
+    position: absolute;
+    bottom: 11px;
+    right: 0;
+    left: 0;
+    margin: auto;
+    width: 51px;
+    text-align: center;
+  }
+}

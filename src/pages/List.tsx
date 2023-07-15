@@ -1,29 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
 import { AnimePages, GET_ANIMES } from "../api/anime";
-import { getTitle } from "../helpers/anime";
-import { Link, useLocation } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../store";
 import { nextPage } from "../actions/anime";
 import { LoadingOutlined } from "@ant-design/icons";
 import { Spin } from "antd";
+import AnimeList from "../components/AnimeList";
 
 const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 
 const ListPage = () => {
-  const { state } = useLocation();
   const dispatch = useAppDispatch();
   const page = useAppSelector((state) => state.anime.page);
   const { fetchMore, loading, error, data } = useQuery<AnimePages>(GET_ANIMES, { variables: { page: 1 } });
-
-  // go to last scroll position if exist
-  useEffect(() => {
-    if (state?.scrollY) {
-      window.scrollTo(0, state.scrollY);
-      // remove scroll position when already scrolled
-      window.history.replaceState({}, document.title);
-    }
-  });
 
   const [isLoadingMore, setIsLoadingMore] = useState(false);
   useEffect(() => {
@@ -51,9 +40,14 @@ const ListPage = () => {
     return () => {
       window.removeEventListener("scroll", onWindowScroll);
     };
-  }, [page]);
+  }, [page, isLoadingMore]);
 
-  if (loading) return <Spin indicator={antIcon} />;
+  if (loading)
+    return (
+      <div className="anime-loading">
+        <Spin indicator={antIcon} />
+      </div>
+    );
   if (error) return <div>`Error! ${JSON.stringify(error)}`</div>;
   if (!data) return <div>"Empty"</div>;
   // prettier-ignore
@@ -61,15 +55,7 @@ const ListPage = () => {
 
   return (
     <div>
-      {media.map((m) => (
-        <Link to={`anime/${m.id}`}>
-          <div key={m.id} data-id={m.id}>
-            {getTitle(m.title)}
-            <img src={m.coverImage.large} alt="anime cover" />
-          </div>
-        </Link>
-      ))}
-      {isLoadingMore && <Spin indicator={antIcon} />}
+      <AnimeList animes={media} isLoading={loading || isLoadingMore} />
     </div>
   );
 };
