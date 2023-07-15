@@ -1,12 +1,12 @@
 import { gql } from "@apollo/client";
 
 export type Anime = {
-  id: string;
+  id: number;
   title: {
-    romaji: string;
-    english: string;
-    native: string;
-    userPreferred: string;
+    romaji?: string;
+    english?: string;
+    native?: string;
+    userPreferred?: string;
   };
   coverImage: {
     extraLarge: string;
@@ -14,7 +14,7 @@ export type Anime = {
     medium: string;
     color: string;
   };
-  bannerImage: string;
+  bannerImage: string | null;
   trending: number;
   description: string;
   genres: string[];

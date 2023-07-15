@@ -1,10 +1,10 @@
 import React from "react";
 import { useQuery } from "@apollo/client";
-import { AnimePages, GET_ANIME_BY_IDS } from "../api/anime";
-import { useAppSelector } from "../store";
+import { AnimePages, GET_ANIME_BY_IDS } from "../../api/anime";
+import { useAppSelector } from "../../store";
 import { LoadingOutlined } from "@ant-design/icons";
 import { Spin } from "antd";
-import AnimeList from "../components/AnimeList";
+import AnimeList from "../../components/AnimeList";
 import { Link } from "react-router-dom";
 
 const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;

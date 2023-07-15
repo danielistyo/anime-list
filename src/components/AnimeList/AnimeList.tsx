@@ -12,13 +12,12 @@ const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 const AnimeList = ({ animes, showLoading }: { animes: Anime[]; showLoading?: boolean }) => {
   return (
     <div className="anime-list">
-      {showLoading && <Spin indicator={antIcon} />}
       {animes.map((m) => (
         <Link to={{ pathname: `/anime/${m.id}` }} key={m.id} className="anime-list__link">
           <AnimeItem anime={m} />
         </Link>
       ))}
-      {showLoading && <Spin indicator={antIcon} className="anime-list__loading" />}
+      {showLoading && <Spin indicator={antIcon} className="anime-list__loading" data-testid="anime-list-loading"/>}
     </div>
   );
 };

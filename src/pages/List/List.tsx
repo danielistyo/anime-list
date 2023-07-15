@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
-import { AnimePages, GET_ANIMES, GET_GENRES } from "../api/anime";
-import { useAppDispatch, useAppSelector } from "../store";
-import { nextPage } from "../actions/anime";
+import { AnimePages, GET_ANIMES, GET_GENRES } from "../../api/anime";
+import { useAppDispatch, useAppSelector } from "../../store";
+import { nextPage } from "../../actions/anime";
 import { LoadingOutlined } from "@ant-design/icons";
 import { Spin } from "antd";
-import AnimeList from "../components/AnimeList";
+import AnimeList from "../../components/AnimeList";
 import { Link } from "react-router-dom";
 import "./List.scss";
 

@@ -1,12 +1,12 @@
 import { useQuery } from "@apollo/client";
 import React from "react";
 import { useParams } from "react-router-dom";
-import { AnimePage, GET_ANIME } from "../api/anime";
+import { AnimePage, GET_ANIME } from "../../api/anime";
 import { useDispatch } from "react-redux";
-import { addBookmark } from "../actions/anime";
-import { useAppSelector } from "../store";
+import { addBookmark } from "../../actions/anime";
+import { useAppSelector } from "../../store";
 import { CloseOutlined, CalendarOutlined, ClockCircleOutlined, StarFilled } from "@ant-design/icons";
-import { getTitle } from "../helpers/anime";
+import { getTitle } from "../../helpers/anime";
 import "./Detail.scss";
 
 const DetailPage = () => {
@@ -43,7 +43,7 @@ const DetailPage = () => {
         }}
       />
       <img src={extraLarge} className="anime-detail__poster" alt="poster" />
-      <img src={bannerImage} className="anime-detail__backdrop" alt="backdrop" />
+      <img src={bannerImage || ""} className="anime-detail__backdrop" alt="backdrop" />
       <div className="anime-detail__detail">
         <div className="anime-detail__title">{getTitle(title)}</div>
         <div className="anime-detail__subtitle">
