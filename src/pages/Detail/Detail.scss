@@ -68,6 +68,13 @@
     max-width: 600px;
     max-height: 300px;
     color: #fff;
+
+    @media screen and (max-width: 600px) {
+      width: 90%;
+      left: 0;
+      top: 200px;
+      margin: 0 auto;
+    }
   }
 
   &__title {

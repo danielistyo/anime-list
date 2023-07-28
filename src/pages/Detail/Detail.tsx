@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { addBookmark } from "../../actions/anime";
 import { useAppSelector } from "../../store";
 import { CloseOutlined, CalendarOutlined, ClockCircleOutlined, StarFilled } from "@ant-design/icons";
-import { getTitle } from "../../helpers/anime";
+import { getDate, getTitle } from "../../helpers/anime";
 import "./Detail.scss";
 
 const DetailPage = () => {
@@ -24,7 +24,7 @@ const DetailPage = () => {
     bannerImage,
     title,
     genres,
-    startDate: { day, month, year },
+    startDate,
     duration,
     description,
     averageScore,
@@ -47,9 +47,9 @@ const DetailPage = () => {
       <div className="anime-detail__detail">
         <div className="anime-detail__title">{getTitle(title)}</div>
         <div className="anime-detail__subtitle">
-          <div className="anime-detail__genre">{genres.join(" ")}</div>
+          <div className="anime-detail__genre">{genres.join(" | ")}</div>
           <div className="anime-detail__date">
-            <CalendarOutlined /> {`${day} ${month} ${year}`}
+            <CalendarOutlined /> {getDate(startDate)}
           </div>
           <div className="anime-detail__duration">
             <ClockCircleOutlined /> {duration} min

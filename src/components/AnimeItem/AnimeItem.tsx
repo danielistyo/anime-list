@@ -1,5 +1,5 @@
 import React from "react";
-import { getTitle } from "../../helpers/anime";
+import { getDate, getTitle } from "../../helpers/anime";
 import PropTypes from "prop-types";
 import { StarFilled } from "@ant-design/icons";
 import { Anime } from "../../api/anime";
@@ -11,7 +11,9 @@ const AnimeItem = ({ anime: { id, title, startDate, coverImage, averageScore } }
       <div className="anime__detail">
         <div className="anime__title">
           {getTitle(title)}
-          <div className="anime__date" data-testid="anime-item-date">{`${startDate.day} ${startDate.month} ${startDate.year}`}</div>
+          <div className="anime__date" data-testid="anime-item-date">
+            {getDate(startDate)}
+          </div>
         </div>
         <div className="anime__score">
           <StarFilled /> {averageScore}

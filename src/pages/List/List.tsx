@@ -1,8 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
 import { AnimePages, GET_ANIMES, GET_GENRES } from "../../api/anime";
-import { useAppDispatch, useAppSelector } from "../../store";
-import { nextPage } from "../../actions/anime";
 import { LoadingOutlined } from "@ant-design/icons";
 import { Spin } from "antd";
 import AnimeList from "../../components/AnimeList";
@@ -11,23 +9,22 @@ import "./List.scss";
 
 const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 
+window.timeoutScroll = null;
+
 const ListPage = () => {
-  const dispatch = useAppDispatch();
-  const page = useAppSelector((state) => state.anime.page);
-  const [genre, setGenre] = useState("default");
-  const { fetchMore, loading, error, data } = useQuery<AnimePages>(GET_ANIMES, {
-    variables: { page: 1, genre: genre !== "default" ? genre : null },
+  const [page, setPage] = useState(1);
+  const { fetchMore, loading, error, data, refetch } = useQuery<AnimePages>(GET_ANIMES, {
+    variables: { page: 1 },
   });
   const { data: genres } = useQuery(GET_GENRES);
 
-  const [isLoadingMore, setIsLoadingMore] = useState(false);
-  useEffect(() => {
-    const onWindowScroll = (e: Event) => {
-      if (isLoadingMore) return;
-      const bodyEl = (e.target as Document)?.body;
-      if (window.scrollY + window.innerHeight + 50 >= bodyEl.scrollHeight) {
-        setIsLoadingMore(true);
-        dispatch(nextPage());
+  const loadMoreData = useCallback(() => {
+    if (window.timeoutScroll !== undefined) clearTimeout(window.timeoutScroll);
+
+    const bodyEl = document.body;
+    if (window.scrollY + window.innerHeight + 50 >= bodyEl.scrollHeight) {
+      window.timeoutScroll = setTimeout(() => {
+        setPage(page + 1);
         fetchMore({
           variables: { page: page + 1 },
           updateQuery: (previousResult, { fetchMoreResult }) => {
@@ -37,16 +34,18 @@ const ListPage = () => {
             return { Page: { ...previousResult.Page, media: [...previousResult.Page.media, ...diffRes] } };
           },
         });
-        setIsLoadingMore(false);
-      }
-    };
-    window.addEventListener("scroll", onWindowScroll);
-    return () => {
-      window.removeEventListener("scroll", onWindowScroll);
-    };
-    // we don't need to pass deps, because it's intended
+      }, 200);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page, isLoadingMore]);
+  }, [page]);
+
+  useEffect(() => {
+    window.addEventListener("scroll", loadMoreData);
+    return () => {
+      window.removeEventListener("scroll", loadMoreData);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [page]);
 
   if (loading)
     return (
@@ -60,12 +59,12 @@ const ListPage = () => {
   const { Page: { media } } = data;
 
   const onGenreChange: React.ChangeEventHandler<HTMLSelectElement> = (e) => {
-    setGenre(e.currentTarget.value);
+    refetch({ genre: e.currentTarget.value });
   };
   return (
     <div className="listpage">
       <div className="listpage__header">
-        <select className="listpage__genre" onChange={onGenreChange} value={genre}>
+        <select className="listpage__genre" onChange={onGenreChange}>
           <option value="default">Select Genre</option>
           {genres?.GenreCollection?.map((g: string) => (
             <option value={g} key={g}>
@@ -77,7 +76,7 @@ const ListPage = () => {
           <h4 className="listpage__bookmark">Bookmark</h4>
         </Link>
       </div>
-      <AnimeList animes={media} />
+      <AnimeList animes={media} showLoading />
     </div>
   );
 };
